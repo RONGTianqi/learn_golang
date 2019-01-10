@@ -3,13 +3,14 @@ pipeline {
     tools {
         go 'go-1.11'
     }
-    environment { 
-        // GOPATH = '$WORKSPACE'
-        PATH+GO='${root}/bin'
-        GOROOT='${root}'
-        // PATH= '$GOPATH/bin:$PATH'
-        // GOROOT = '${root}'
-    }
+    // environment { 
+    //     GOPATH = '$WORKSPACE'
+    //     PATH+GO='${root}/bin'
+    //     GOROOT='${root}'
+    //     PATH= '$GOPATH/bin:$PATH'
+    //     GOROOT = '${root}'
+    // }
+    withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]){
     stages{
     stage("build") {
         steps {
@@ -50,6 +51,7 @@ pipeline {
                 echo "部署完成"
             }
         }
+    }
     }
 }
 
