@@ -1,4 +1,4 @@
-Run on an agent where we want to use Go<font></font>
+// Run on an agent where we want to use Go<font></font>
 node {
     // Install the desired Go version<font></font>
     def root = tool name: 'go-1.11', type: 'go'
