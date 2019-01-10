@@ -5,7 +5,7 @@ pipeline {
     }
     environment { 
         // GOPATH = '$WORKSPACE'
-        'PATH+GO'='${root}/bin'
+        PATH+GO='${root}/bin'
         GOROOT='${root}'
         // PATH= '$GOPATH/bin:$PATH'
         // GOROOT = '${root}'
