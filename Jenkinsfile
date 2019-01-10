@@ -7,6 +7,7 @@ pipeline {
         GOPATH = '$WORKSPACE'
         GOROOT = '${root}'
     }
+    stages{
     stage("build") {
         steps {
             echo "构建中..."
@@ -46,6 +47,6 @@ pipeline {
                 echo "部署完成"
             }
         }
-    
+    }
 }
 
