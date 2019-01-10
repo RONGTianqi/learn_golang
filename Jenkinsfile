@@ -5,6 +5,7 @@ pipeline {
     }
     environment { 
         GOPATH = '$WORKSPACE'
+        PATH= '$GOPATH/bin:$PATH'
         GOROOT = '${root}'
     }
     stages{
