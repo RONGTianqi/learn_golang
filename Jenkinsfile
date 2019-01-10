@@ -4,8 +4,8 @@ pipeline {
         go 'go-1.11'
     }
     environment { 
-        GOROOT='${root}'
-        GOPATH = '${root}/bin'
+        
+        GOPATH = '$WORKSPACE'
         // PATH+GO='${root}/bin'
        
         // PATH= '$GOPATH/bin:$PATH'
@@ -17,6 +17,8 @@ pipeline {
     stage("build") {
         steps {
             echo "构建中..."
+                sh 'mkdir -p $GOPATH/src/'
+                sh 'ln -s $WORKSPACE $GOPATH/src/learn_golang'
                 sh 'go version'
                 // sh 'export GOPATH=$WORKSPACE/gopath'
                 // sh 'export PATH=$GOPATH/bin:$PATH'
