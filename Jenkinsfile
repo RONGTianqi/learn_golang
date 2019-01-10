@@ -7,10 +7,11 @@ node {
         sh 'go version'
         sh 'export GOPATH=$WORKSPACE'
         sh 'export PATH=$PATH:$GOPATH/bin'
-    }
+        sh 'go build' 
+   }
     stage ('build'){
         echo "构建中..."
-        sh 'go build'
+        
         echo "构建完成."
     }
 
