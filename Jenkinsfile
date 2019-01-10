@@ -5,7 +5,7 @@ pipeline {
         
         stage("checkout") {
             steps {
-                sh 'export GOPATH=$WORKSPACE/gopath'
+                sh 'export GOPATH=$WORKSPACE/dev-demo'
                 sh 'export PATH=$GOPATH/bin:$PATH'
             }
         }
