@@ -3,6 +3,15 @@ pipeline {
     
     stages  {
         
+        stage("checkout") {
+            steps {
+                sh 'export GOPATH=$WORKSPACE/gopath'
+                sh 'export PATH=$GOPATH/bin:$PATH'
+                sh 'mkdir -p $GOPATH/bin'
+                sh 'mkdir -p $GOPATH/src/github.com/'
+            }
+        }
+
         stage("build") {
             steps {
                 echo "构建中..."
