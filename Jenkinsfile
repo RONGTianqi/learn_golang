@@ -4,9 +4,11 @@ pipeline {
         go 'go-1.11'
     }
     environment { 
-        GOPATH = '$WORKSPACE'
-        PATH= '$GOPATH/bin:$PATH'
-        GOROOT = '${root}'
+        // GOPATH = '$WORKSPACE'
+        'PATH+GO=${root}/bin'
+        'GOROOT=${root}'
+        // PATH= '$GOPATH/bin:$PATH'
+        // GOROOT = '${root}'
     }
     stages{
     stage("build") {
