@@ -10,8 +10,9 @@ pipeline {
     //     PATH= '$GOPATH/bin:$PATH'
     //     GOROOT = '${root}'
     // }
-    withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]){
+    
     stages{
+    withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]){
     stage("build") {
         steps {
             echo "构建中..."
