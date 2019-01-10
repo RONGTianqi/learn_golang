@@ -3,16 +3,17 @@ pipeline {
     tools {
         go 'go-1.11'
     }
-    // environment { 
-    //     GOPATH = '$WORKSPACE'
-    //     PATH+GO='${root}/bin'
-    //     GOROOT='${root}'
-    //     PATH= '$GOPATH/bin:$PATH'
-    //     GOROOT = '${root}'
-    // }
+    environment { 
+        GOROOT='${root}'
+        GOPATH = '${root}/bin'
+        // PATH+GO='${root}/bin'
+       
+        // PATH= '$GOPATH/bin:$PATH'
+        // GOROOT = '${root}'
+    }
     
     stages{
-    withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]){
+    
     stage("build") {
         steps {
             echo "构建中..."
@@ -53,6 +54,6 @@ pipeline {
             }
         }
     }
-    }
+    
 }
 
