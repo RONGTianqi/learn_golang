@@ -4,26 +4,27 @@ node {
     def root = tool name: 'go-1.11', type: 'go'
     // Export environment variables pointing to the directory where Go was installed<font></font>
     withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
-        sh 'go version'
-        sh 'export GOPATH=$WORKSPACE'
-        sh 'export PATH=$PATH:$GOPATH/bin'
-        sh 'go build' 
-        sh 'go run main.go'
-   }
-    stage ('build'){
-        echo "构建中..."
-        
-        echo "构建完成."
-    }
+        sh 'go version'        
+        // sh 'export GOPATH=$WORKSPACE'
+        // sh 'export PATH=$PATH:$GOPATH/bin'
+        stage ('build'){
+            echo "构建中..."
+            sh 'go build'
+            echo "构建完成."
+        }
+        stage ('test'){
+            echo "单元测试中..."
+            sh 'go run main.go'
+            echo "单元测试完成."
+        }
+        stage("部署") {
+            echo "部署中..."
+            echo "部署完成"
+        }
+    }     
+}                            
+  
 
-    stage ('test'){
-        echo "单元测试中..."
-        
-        echo "单元测试完成."
-    }
 
-    stage("部署") {
-        echo "部署中..."
-        echo "部署完成"
-    }
-}
+   
+
