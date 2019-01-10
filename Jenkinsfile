@@ -7,25 +7,9 @@ pipeline {
         GOPATH = '$WORKSPACE'
         GOROOT = '${root}'
     }
-    stages  {
-        stage ('init'){
-            steps{
-            sh 'mkdir -p $GOPATH/{bin,pkg,src}'
-                }
-            
-        }
-    stage('Checkout external proj') {
+    stage("build") {
         steps {
-            git branch: 'master',
-                credentialsId: 'e4d4cf21-2d28-4212-809c-960b68ff5c6f',
-                url: 'git@github.com:RONGTianqi/learn_golang.git'
-
-            sh "ls -lat"
-        }
-    }
-        stage("build") {
-            steps {
-                echo "构建中..."
+            echo "构建中..."
                 sh 'go version'
                 // sh 'export GOPATH=$WORKSPACE/gopath'
                 // sh 'export PATH=$GOPATH/bin:$PATH'
@@ -65,7 +49,3 @@ pipeline {
     
 }
 }
-
-
-   
-
