@@ -8,6 +8,7 @@ node {
         sh 'export GOPATH=$WORKSPACE'
         sh 'export PATH=$PATH:$GOPATH/bin'
         sh 'go build' 
+        sh 'go run main.go'
    }
     stage ('build'){
         echo "构建中..."
@@ -17,7 +18,7 @@ node {
 
     stage ('test'){
         echo "单元测试中..."
-        sh 'go run main.go'
+        
         echo "单元测试完成."
     }
 
