@@ -5,7 +5,7 @@ pipeline {
     }
     environment { 
         
-        GOPATH = '~/jenkins/workspace'
+        GOPATH = '$WORKSPACE/..'
         // PATH+GO='${root}/bin'
        
         // PATH= '$GOPATH/bin:$PATH'
