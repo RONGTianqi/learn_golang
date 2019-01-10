@@ -6,10 +6,10 @@ pipeline {
         stage("checkout") {
             steps {
                 checkout(
-                [$class: 'GitSCM', branches: [[name: env.GIT_BUILD_REF]], 
-                userRemoteConfigs: [[url: env.GIT_REPO_URL]]]
-                // [$class: 'GitSCM', branches: [[name:'*/master']], 
-                // userRemoteConfigs: [[url: 'git@github.com:RONGTianqi/learn_golang.git']]]
+                // [$class: 'GitSCM', branches: [[name: env.GIT_BUILD_REF]], 
+                // userRemoteConfigs: [[url: env.GIT_REPO_URL]]]
+                [$class: 'GitSCM', branches: [[name:'*/master']], 
+                userRemoteConfigs: [[url: 'git@github.com:RONGTianqi/learn_golang.git']]]
                 //   [$class: 'GitSCM', branches: [[name: '*/master']], 
                 //   userRemoteConfigs: [[url: 'git@git.dev.tencent.com:RONGTianqi/dev-demo.git']]]
                 )
