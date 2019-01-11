@@ -9,16 +9,16 @@ node {
         env.PATH="${GOPATH}/bin:$PATH"
         env.PATH="${GOROOT}/bin:$PATH"
         sh 'go version'
-        // stage ('checkout'){
-        // checkout([                      
-        //         $class: 'GitSCM', 
-        //         branches: [[name: '*/master']], 
-        //         userRemoteConfigs: [[
-        //             credentialsId: 'e4d4cf21-2d28-4212-809c-960b68ff5c6f', 
-        //             url: 'git@github.com:RONGTianqi/learn_golang.git'
-        //         ]]
-        //     ])
-        // }
+        stage ('checkout'){
+        checkout([                      
+                $class: 'GitSCM', 
+                branches: [[name: '*/master']], 
+                userRemoteConfigs: [[
+                    credentialsId: 'e4d4cf21-2d28-4212-809c-960b68ff5c6f', 
+                    url: 'git@github.com:RONGTianqi/learn_golang.git'
+                ]]
+            ])
+        }
 
         stage ('build'){
             echo "构建中..."
