@@ -5,8 +5,8 @@ node {
     // Export environment variables pointing to the directory where Go was installed<font></font>
     // withEnv(["PATH+GO=${root}/bin"]) {
     // ws("${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}/") {
-        withEnv(["GOROOT=${root}"]) {
-    
+        withEnv(["GOPATH=${WORKSPACE}","GOROOT=${root}"]) {
+        env.PATH="${GOPATH}/bin:$PATH"
         env.PATH="${GOROOT}/bin:$PATH"
         sh 'go version'
         stage ('checkout'){
@@ -22,7 +22,7 @@ node {
 
         stage ('build'){
             echo "构建中..."
-            sh 'cd ${GOPATH}'
+            sh 'export GO111MODULE=on'
             sh 'go build'
             echo "构建完成."
         }
