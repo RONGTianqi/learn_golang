@@ -2,9 +2,6 @@
 node() {
   def root = tool name: 'go-1.11', type: 'go'
 
-  stage ('Compile') {
-    sh "${root}/bin/go build"
-  }
   stage ('Static Analysis'){
     withEnv(["GOPATH=${WORKSPACE}", "PATH+GO=${root}/bin:${WORKSPACE}/bin", "GOBIN=${WORKSPACE}/bin"]){
       sh "go get github.com/golang/lint/golint"
