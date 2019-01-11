@@ -22,7 +22,7 @@ node {
 
         stage ('build'){
             echo "构建中..."
-            sh 'cd ${GOPATH}/src && go build'
+            sh 'export GO111MODULE=on && go build'
             echo "构建完成."
         }
         stage ('test'){
