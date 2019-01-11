@@ -5,9 +5,9 @@ node {
     // Export environment variables pointing to the directory where Go was installed<font></font>
     // withEnv(["PATH+GO=${root}/bin"]) {
     // ws("${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}/") {
-        withEnv(["GOPATH=${WORKSPACE}","GOROOT=${root}"]) {
-                env.PATH="${GOPATH}/bin:$PATH"
-                env.PATH="${GOROOT}/bin:$PATH"
+        withEnv(["GOROOT=${root}"]) {
+    
+        env.PATH="${GOROOT}/bin:$PATH"
         sh 'go version'
         stage ('checkout'){
         checkout([                      // git repo
