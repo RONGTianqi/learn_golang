@@ -22,8 +22,7 @@ node {
 
         stage ('build'){
             echo "构建中..."
-            sh 'cd ${GOPATH}/src'
-            sh 'go build'
+            sh 'cd ${GOPATH}/src && go build'
             echo "构建完成."
         }
         stage ('test'){
