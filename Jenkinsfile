@@ -22,6 +22,7 @@ node {
 
         stage ('build'){
             echo "构建中..."
+            sh 'go get github.com/gin-gonic/gin'
             sh 'go build'
             echo "构建完成."
         }
