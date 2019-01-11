@@ -1,32 +1,41 @@
-pipeline {
-    agent docker
-    stages{
 
-    stage("build") {
-            steps {
-            echo "构建中..."
-            sh 'docker build -t gindocker .'
-            echo "构建完成."
-                // archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true // 收集构建产物
-            }
-        }
+node() {
+  def root = tool name: 'go-1.11', type: 'go'
 
-        stage("测试") {
-            steps {
-                echo "单元测试中..."
+  stage ('Compile') {
+    sh "${root}/bin/go build"
+  }
+  stage ('Static Analysis'){
+    withEnv(["GOPATH=${WORKSPACE}", "PATH+GO=${root}/bin:${WORKSPACE}/bin", "GOBIN=${WORKSPACE}/bin"]){
+      sh "go get github.com/golang/lint/golint"
 
-                echo "单元测试完成."
-                // junit 'target/surefire-reports/*.xml' // 收集单元测试报告的调用过程
-            }
-        }
+      try{
+        sh "golint ."
+        sh "go vet ."
+      } catch (err){
+        sh "echo static analyis failed.  See report"
+      }
 
-        stage("部署") {
-            steps {
-                echo "部署中..."
-                sh 'docker run -d -p 8000:8000 gindocker'
-                echo "部署完成"
-            }
-        }
+      warnings canComputeNew: true, canResolveRelativePaths: true, categoriesPattern: '', consoleParsers: [[parserName: 'Go Vet'], [parserName: 'Go Lint']], defaultEncoding: '', excludePattern: '', healthy: '', includePattern: '', messagesPattern: '', unHealthy: ''
     }
+  }
+  stage ('Test') {
+   withEnv(["GOPATH=${WORKSPACE}", "PATH+GO=${root}/bin:${WORKSPACE}/bin", "GOBIN=${WORKSPACE}/bin"]){
+      sh "go test -v -coverprofile=coverage.out -covermode count > tests.out"
 
+      // convert tests result
+      sh "go get github.com/tebeka/go2xunit"
+      sh "go2xunit < tests.out -output tests.xml"
+      junit "tests.xml"
+
+      // convert coverage
+      sh "go get github.com/t-yuki/gocover-cobertura"
+      sh "gocover-cobertura < coverage.out > coverage.xml"
+
+      step([$class: 'CoberturaPublisher', coberturaReportFile: 'coverage.xml'])
+    }
+  }
+  stage ('Archive') {
+    archiveArtifacts '**/tests.out, **/tests.xml, **/coverage.out, **/coverage.xml, **/coverage2.xml'
+  }
 }
